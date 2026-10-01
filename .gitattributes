@@ -1,0 +1,12 @@
+* text=auto
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sql text eol=lf
+*.tf text eol=lf
+*.py text eol=lf
+*.ps1 text eol=crlf
+*.csv text eol=lf
+*.xlsx binary
+*.docx binary
+*.pbix binary
+*.pbit binary

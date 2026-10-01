@@ -30,6 +30,19 @@ jobs:
             --start-ip-address "$ip" \
             --end-ip-address "$ip"
 
+      - name: Ensure target database exists
+        shell: bash
+        run: |
+          if ! az postgres flexible-server db show \
+            --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
+            --server-name "${{ secrets.AZURE_POSTGRES_SERVER }}" \
+            --database-name "${{ secrets.DB_NAME }}" >/dev/null 2>&1; then
+            az postgres flexible-server db create \
+              --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
+              --server-name "${{ secrets.AZURE_POSTGRES_SERVER }}" \
+              --database-name "${{ secrets.DB_NAME }}"
+          fi
+
       - name: Run Liquibase changelog
         uses: liquibase-github-actions/update@v4.29.2
         with:
