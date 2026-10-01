@@ -219,6 +219,25 @@ El directorio `powerbi/` incluye un proyecto Power BI (`.pbip`) con modelo seman
 
 Para publicar desde GitHub Actions, abrir `powerbi/AgroindustriaProduce.pbip` en Power BI Desktop, completar las paginas descritas en `powerbi/AgroindustriaProduce.Report/report_spec.md`, guardar como `powerbi/AgroindustriaProduce.pbix` y ejecutar `deploy.yml`.
 
+## Publicacion del reporte
+
+El requisito indica compartir el reporte publicado con la cuenta `patcuadrosqœupt.pe`. Ese texto parece tener `œ` en lugar de `@`; Power BI normalmente requiere un usuario/correo valido, por lo que se debe confirmar si la cuenta correcta es `patcuadrosq@upt.pe`.
+
+Para publicar el reporte hay dos opciones:
+
+1. Publicacion manual: abrir `powerbi/AgroindustriaProduce.pbip` en Power BI Desktop, conectarlo a PostgreSQL, guardar como `powerbi/AgroindustriaProduce.pbix`, usar **Publicar** hacia el workspace de Power BI y compartir el reporte con la cuenta indicada.
+2. Publicacion automatizada: subir `powerbi/AgroindustriaProduce.pbix` al repositorio, configurar los secretos de Power BI indicados en `docs/secrets.md` y ejecutar el workflow `deploy-powerbi`.
+
+Para que un tercero ejecute la publicacion automatizada se necesita:
+
+- Acceso a un workspace de Power BI.
+- `POWERBI_TENANT_ID`.
+- `POWERBI_CLIENT_ID`.
+- `POWERBI_CLIENT_SECRET`.
+- `POWERBI_WORKSPACE_ID`.
+- El archivo final `powerbi/AgroindustriaProduce.pbix`.
+- Confirmacion del correo correcto para compartir el reporte.
+
 ## URLs
 
 - URL GitHub del proyecto: https://github.com/VictorPlatero/Examen_Unidad_I_IN
