@@ -1,5 +1,7 @@
 # Empresas Agroindustriales PRODUCE 2023
 
+Titular: Victor Joseph Platero Maron
+
 Proyecto de ingesta, modelado, infraestructura y analitica para el dataset **Empresas Agroindustriales a nivel nacional 2023** publicado por el Ministerio de la Produccion del Peru en la Plataforma Nacional de Datos Abiertos.
 
 ## Dataset
