@@ -219,7 +219,7 @@ Para publicar desde GitHub Actions, abrir `powerbi/AgroindustriaProduce.pbip` en
 
 ## URLs
 
-- URL GitHub del proyecto: pendiente hasta crear el repositorio remoto y ejecutar `git push`.
+- URL GitHub del proyecto: https://github.com/VictorPlatero/Examen_Unidad_I_IN
 - URL del reporte publicado: pendiente hasta ejecutar `deploy.yml` con credenciales de Power BI.
 
 ## Notas
