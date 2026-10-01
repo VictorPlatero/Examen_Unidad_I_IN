@@ -1,0 +1,3 @@
+expression Parameter_Server = "replace-with-server.postgres.database.azure.com" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+
+expression Parameter_Database = "agroindustria_dw" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]

@@ -1,0 +1,51 @@
+name: setup
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  database-setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Allow this runner through PostgreSQL firewall
+        shell: bash
+        run: |
+          ip="$(curl -fsSL https://api.ipify.org)"
+          az postgres flexible-server firewall-rule create \
+            --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
+            --name "${{ secrets.AZURE_POSTGRES_SERVER }}" \
+            --rule-name "github-actions-setup-${{ github.run_id }}" \
+            --start-ip-address "$ip" \
+            --end-ip-address "$ip"
+
+      - name: Run Liquibase changelog
+        uses: liquibase-github-actions/update@v4.29.2
+        with:
+          changelogFile: liquibase/db.changelog-master.yaml
+          url: jdbc:postgresql://${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}?sslmode=require
+          username: ${{ secrets.DB_USER }}
+          password: ${{ secrets.DB_PASSWORD }}
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Smoke checks
+        env:
+          PGPASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          psql "host=${{ secrets.DB_HOST }} port=5432 dbname=${{ secrets.DB_NAME }} user=${{ secrets.DB_USER }} sslmode=require" \
+            -f sql/03_smoke_checks.sql

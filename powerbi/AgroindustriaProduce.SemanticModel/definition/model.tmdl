@@ -1,0 +1,20 @@
+model Model
+
+culture: en-US
+
+table EmpresasAgroindustriales
+
+measure Empresas = DISTINCTCOUNT(EmpresasAgroindustriales[id_anonimo_emp])
+    formatString: #,0
+
+measure Exportadoras = CALCULATE([Empresas], EmpresasAgroindustriales[exporta] = TRUE())
+    formatString: #,0
+
+measure '% Exportadoras' = DIVIDE([Exportadoras], [Empresas])
+    formatString: 0.0%
+
+measure 'Venta maxima estimada' = SUM(EmpresasAgroindustriales[valor_estimado_maximo_venta])
+    formatString: #,0
+
+measure 'FOB maximo estimado USD' = SUM(EmpresasAgroindustriales[valor_estimado_maximo_fob_dolar])
+    formatString: #,0

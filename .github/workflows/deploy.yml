@@ -1,0 +1,44 @@
+name: deploy-powerbi
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "powerbi/**"
+      - ".github/workflows/deploy.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish Power BI report
+        id: publish
+        shell: pwsh
+        run: |
+          ./scripts/publish_powerbi_report.ps1 `
+            -TenantId "${{ secrets.POWERBI_TENANT_ID }}" `
+            -ClientId "${{ secrets.POWERBI_CLIENT_ID }}" `
+            -ClientSecret "${{ secrets.POWERBI_CLIENT_SECRET }}" `
+            -WorkspaceId "${{ secrets.POWERBI_WORKSPACE_ID }}" `
+            -PbixPath "powerbi/AgroindustriaProduce.pbix" `
+            -ShareEmail "patcuadrosq@upt.pe"
+
+      - name: Report URL
+        shell: pwsh
+        run: |
+          "Power BI report URL: ${{ steps.publish.outputs.report_url }}" | Out-File -FilePath powerbi-report-url.txt
+          Get-Content powerbi-report-url.txt
+
+      - name: Upload report URL artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: powerbi-report-url
+          path: powerbi-report-url.txt
