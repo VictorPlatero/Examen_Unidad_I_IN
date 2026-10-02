@@ -1,0 +1,160 @@
+table agroindustria_nacional_2023_clean
+	lineageTag: 4c47f080-c14c-4991-939a-fec72d056ac7
+
+	column id_anonimo_emp
+		dataType: string
+		lineageTag: d2d2bab2-4e9a-4ab4-bb10-72e21eda3940
+		summarizeBy: none
+		sourceColumn: id_anonimo_emp
+
+		annotation SummarizationSetBy = Automatic
+
+	column anio
+		dataType: int64
+		formatString: 0
+		lineageTag: d7895016-7870-4fa5-adb9-054fa464fbca
+		summarizeBy: sum
+		sourceColumn: anio
+
+		annotation SummarizationSetBy = Automatic
+
+	column ciiu
+		dataType: int64
+		formatString: 0
+		lineageTag: 07bffb9b-28a2-4469-9577-dc4b45356508
+		summarizeBy: sum
+		sourceColumn: ciiu
+
+		annotation SummarizationSetBy = Automatic
+
+	column descciiu
+		dataType: string
+		lineageTag: be96010b-29a9-40dd-b840-d2a229ee98ec
+		summarizeBy: none
+		sourceColumn: descciiu
+
+		annotation SummarizationSetBy = Automatic
+
+	column sector
+		dataType: string
+		lineageTag: 57c2d2f7-27db-4b6e-9fb6-4bfb760cda1b
+		summarizeBy: none
+		sourceColumn: sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column ubigeo
+		dataType: int64
+		formatString: 0
+		lineageTag: b181feec-5f9d-410c-9550-71ee57ffad89
+		summarizeBy: sum
+		sourceColumn: ubigeo
+
+		annotation SummarizationSetBy = Automatic
+
+	column departamento
+		dataType: string
+		lineageTag: e9d0b2d1-b215-441c-b397-6a7236669b8f
+		summarizeBy: none
+		sourceColumn: departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column provincia
+		dataType: string
+		lineageTag: a110a9cc-9838-4400-9585-8751982d64db
+		summarizeBy: none
+		sourceColumn: provincia
+
+		annotation SummarizationSetBy = Automatic
+
+	column distrito
+		dataType: string
+		lineageTag: b6a3bf89-9b47-4576-8ad9-480cbb65ad00
+		summarizeBy: none
+		sourceColumn: distrito
+
+		annotation SummarizationSetBy = Automatic
+
+	column tamanio_emp
+		dataType: string
+		lineageTag: bd23ecaf-0085-4fed-b17a-2ab44804b19e
+		summarizeBy: none
+		sourceColumn: tamanio_emp
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_estimado_minimo_venta
+		dataType: int64
+		formatString: 0
+		lineageTag: 9cfc00cf-6c08-43c6-8e12-61c56452f734
+		summarizeBy: sum
+		sourceColumn: valor_estimado_minimo_venta
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_estimado_maximo_venta
+		dataType: int64
+		formatString: 0
+		lineageTag: 4211e8d5-677d-4bed-a8ae-16da6acd6ee4
+		summarizeBy: sum
+		sourceColumn: valor_estimado_maximo_venta
+
+		annotation SummarizationSetBy = Automatic
+
+	column exporta
+		dataType: string
+		lineageTag: 3ee42466-e7b6-4d89-949f-93785b8f0b79
+		summarizeBy: none
+		sourceColumn: exporta
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_estimado_minimo_fob_dolar
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a4b851c-028f-4708-9a57-16c64d192552
+		summarizeBy: sum
+		sourceColumn: valor_estimado_minimo_fob_dolar
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_estimado_maximo_fob_dolar
+		dataType: int64
+		formatString: 0
+		lineageTag: ce85b4e1-2fc9-443b-bcd4-fd7f38215afd
+		summarizeBy: sum
+		sourceColumn: valor_estimado_maximo_fob_dolar
+
+		annotation SummarizationSetBy = Automatic
+
+	column fec_creacion
+		dataType: int64
+		formatString: 0
+		lineageTag: 9510dc21-a3fe-428c-9404-5de46e0d86f1
+		summarizeBy: sum
+		sourceColumn: fec_creacion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition agroindustria_nacional_2023_clean = m
+		mode: import
+		source =
+				let
+				    Source = if Parameter_Source = "CSV" then
+				        Table.PromoteHeaders(Csv.Document(File.Contents(Parameter_Csv), [Delimiter=";", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.Csv]), [PromoteAllScalars=true])
+				    else if Parameter_Source = "PostgreSQL" then
+				        let
+				            Database = PostgreSQL.Database(Parameter_Server, Parameter_Database),
+				            View = Database{[Schema="agroindustria", Item="vw_empresas_agroindustriales"]}[Data],
+				            Renamed = Table.RenameColumns(View, {{"descripcion_ciiu", "descciiu"}}),
+				            Normalized = Table.TransformColumns(Renamed, {{"exporta", each if _ then "SI" else "NO", type text}, {"fec_creacion", each Number.FromText(Date.ToText(Date.From(_), "yyyyMMdd")), Int64.Type}})
+				        in
+				            Normalized
+				    else error "Parameter_Source debe ser CSV o PostgreSQL",
+				    #"Promoted Headers" = Source,
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id_anonimo_emp", type text}, {"anio", Int64.Type}, {"ciiu", Int64.Type}, {"descciiu", type text}, {"sector", type text}, {"ubigeo", Int64.Type}, {"departamento", type text}, {"provincia", type text}, {"distrito", type text}, {"tamanio_emp", type text}, {"valor_estimado_minimo_venta", Int64.Type}, {"valor_estimado_maximo_venta", Int64.Type}, {"exporta", type text}, {"valor_estimado_minimo_fob_dolar", Int64.Type}, {"valor_estimado_maximo_fob_dolar", Int64.Type}, {"fec_creacion", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table

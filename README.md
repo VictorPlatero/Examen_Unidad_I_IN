@@ -214,21 +214,23 @@ liquibase \
 
 ## Reporte Power BI
 
-El directorio `powerbi/` incluye un proyecto Power BI (`.pbip`) con modelo semantico base y una especificacion de reporte con:
+El archivo `powerbi/AgroindustriaProduce.pbix` incluye tres paginas con visuales nativos vinculados al modelo importado. La version editable `.pbip` contiene la definicion PBIR y el modelo TMDL:
 
 - Dashboard 1: resumen nacional.
 - Dashboard 2: exportaciones.
-- Reporte de tabla: detalle empresarial con filtro por `tamanio_emp`.
+- Reporte de tabla: nueve columnas de detalle empresarial con filtros por departamento, `tamanio_emp` y condicion exportadora.
 
 Para publicar desde GitHub Actions se incluye `powerbi/AgroindustriaProduce.pbix`. Si se actualiza el diseno desde Power BI Desktop, guardar la nueva version con el mismo nombre y ejecutar `deploy.yml`.
 
+Verificacion del punto 4: `python scripts/validate_powerbi_report.py --output powerbi/validation.json` (requiere `jsonschema`). Se validan tres paginas, cuatro graficos, tabla, segmentadores, esquemas oficiales, columnas e integridad del PBIX. El modelo existente fue contrastado mediante DAX: 14,224 registros y 665 exportadoras. La revision visual en Desktop y la publicacion no estan confirmadas por esta comprobacion. Los pasos manuales estan en `powerbi/README.md`.
+
 ## Publicacion del reporte
 
-El requisito indica compartir el reporte publicado con la cuenta `patcuadrosqœupt.pe`. Ese texto parece tener `œ` en lugar de `@`; Power BI normalmente requiere un usuario/correo valido, por lo que se debe confirmar si la cuenta correcta es `patcuadrosq@upt.pe`.
+El titular confirmo compartir el reporte publicado con `patcuadrosq@upt.pe`.
 
 Para publicar el reporte hay dos opciones:
 
-1. Publicacion manual: abrir `powerbi/AgroindustriaProduce.pbip` en Power BI Desktop, conectarlo a PostgreSQL, guardar como `powerbi/AgroindustriaProduce.pbix`, usar **Publicar** hacia el workspace de Power BI y compartir el reporte con la cuenta indicada.
+1. Publicacion manual: abrir `powerbi/AgroindustriaProduce.pbix` en Power BI Desktop, verificar sus tres paginas, guardar, usar **Publicar** hacia el workspace de Power BI y compartir el reporte con la cuenta indicada. El PBIX incluye los datos y no requiere Azure para visualizarlo. Para cambiar la fuente a PostgreSQL, configurar el proyecto PBIP segun `powerbi/README.md`, actualizar y guardar como PBIX.
 2. Publicacion automatizada: configurar los secretos de Power BI indicados en `docs/secrets.md` y ejecutar el workflow `deploy-powerbi`.
 
 Para que un tercero ejecute la publicacion automatizada se necesita:
@@ -239,7 +241,6 @@ Para que un tercero ejecute la publicacion automatizada se necesita:
 - `POWERBI_CLIENT_SECRET`.
 - `POWERBI_WORKSPACE_ID`.
 - El archivo final `powerbi/AgroindustriaProduce.pbix`.
-- Confirmacion del correo correcto para compartir el reporte.
 
 ## URLs
 
@@ -249,5 +250,5 @@ Para que un tercero ejecute la publicacion automatizada se necesita:
 ## Notas
 
 - No se incluyen credenciales ni contrasenas en el repositorio.
-- La cuenta solicitada para compartir el reporte aparece como `patcuadrosqœupt.pe`; en la automatizacion se uso `patcuadrosq@upt.pe` como correo probable. Ajustar si el correo correcto es distinto.
+- La cuenta confirmada para compartir el reporte es `patcuadrosq@upt.pe`.
 - Microsoft documenta PBIP como formato de proyecto basado en archivos de texto y Power BI Desktop como mecanismo para guardar PBIP/PBIX.

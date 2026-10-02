@@ -1,0 +1,245 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "detalle_tabla",
+  "position": {
+    "x": 24,
+    "y": 230,
+    "width": 1552,
+    "height": 610,
+    "z": 0,
+    "tabOrder": 2324
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Detalle empresarial'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#202B28'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "agroindustria_nacional_2023_clean"
+                    }
+                  },
+                  "Property": "id_anonimo_emp"
+                }
+              },
+              "queryRef": "agroindustria_nacional_2023_clean.id_anonimo_emp",
+              "nativeQueryRef": "Empresa",
+              "displayName": "Empresa"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "agroindustria_nacional_2023_clean"
+                    }
+                  },
+                  "Property": "departamento"
+                }
+              },
+              "queryRef": "agroindustria_nacional_2023_clean.departamento",
+              "nativeQueryRef": "Departamento",
+              "displayName": "Departamento"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "agroindustria_nacional_2023_clean"
+                    }
+                  },
+                  "Property": "provincia"
+                }
+              },
+              "queryRef": "agroindustria_nacional_2023_clean.provincia",
+              "nativeQueryRef": "Provincia",
+              "displayName": "Provincia"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "agroindustria_nacional_2023_clean"
+                    }
+                  },
+                  "Property": "distrito"
+                }
+              },
+              "queryRef": "agroindustria_nacional_2023_clean.distrito",
+              "nativeQueryRef": "Distrito",
+              "displayName": "Distrito"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "agroindustria_nacional_2023_clean"
+                    }
+                  },
+                  "Property": "descciiu"
+                }
+              },
+              "queryRef": "agroindustria_nacional_2023_clean.descciiu",
+              "nativeQueryRef": "Actividad CIIU",
+              "displayName": "Actividad CIIU"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "agroindustria_nacional_2023_clean"
+                    }
+                  },
+                  "Property": "tamanio_emp"
+                }
+              },
+              "queryRef": "agroindustria_nacional_2023_clean.tamanio_emp",
+              "nativeQueryRef": "Tamano",
+              "displayName": "Tamano"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "agroindustria_nacional_2023_clean"
+                    }
+                  },
+                  "Property": "exporta"
+                }
+              },
+              "queryRef": "agroindustria_nacional_2023_clean.exporta",
+              "nativeQueryRef": "Exporta",
+              "displayName": "Exporta"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "agroindustria_nacional_2023_clean"
+                    }
+                  },
+                  "Property": "valor_estimado_maximo_venta"
+                }
+              },
+              "queryRef": "agroindustria_nacional_2023_clean.valor_estimado_maximo_venta",
+              "nativeQueryRef": "Venta max. (S/)",
+              "displayName": "Venta max. (S/)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "agroindustria_nacional_2023_clean"
+                    }
+                  },
+                  "Property": "valor_estimado_maximo_fob_dolar"
+                }
+              },
+              "queryRef": "agroindustria_nacional_2023_clean.valor_estimado_maximo_fob_dolar",
+              "nativeQueryRef": "FOB max. (USD)",
+              "displayName": "FOB max. (USD)"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,20 +1,16 @@
 model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-PE
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
 
-culture: en-US
+annotation __PBI_TimeIntelligenceEnabled = 1
 
-table EmpresasAgroindustriales
+annotation PBI_QueryOrder = ["agroindustria_nacional_2023_clean"]
 
-measure Empresas = DISTINCTCOUNT(EmpresasAgroindustriales[id_anonimo_emp])
-    formatString: #,0
+ref table agroindustria_nacional_2023_clean
 
-measure Exportadoras = CALCULATE([Empresas], EmpresasAgroindustriales[exporta] = TRUE())
-    formatString: #,0
-
-measure '% Exportadoras' = DIVIDE([Exportadoras], [Empresas])
-    formatString: 0.0%
-
-measure 'Venta maxima estimada' = SUM(EmpresasAgroindustriales[valor_estimado_maximo_venta])
-    formatString: #,0
-
-measure 'FOB maximo estimado USD' = SUM(EmpresasAgroindustriales[valor_estimado_maximo_fob_dolar])
-    formatString: #,0
+ref cultureInfo en-US

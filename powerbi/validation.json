@@ -1,0 +1,13 @@
+{
+  "pages": 3,
+  "visuals": 27,
+  "schemas_valid": true,
+  "field_bindings_valid": true,
+  "native_charts": 4,
+  "detail_table_columns": 9,
+  "detail_slicers": 3,
+  "desktop_render_verified": false,
+  "dataset_rows": 14224,
+  "exportadoras": 665,
+  "publication_verified": false
+}

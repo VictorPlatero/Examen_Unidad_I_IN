@@ -1,3 +1,7 @@
+expression Parameter_Source = "CSV" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+
+expression Parameter_Csv = "C:\Users\HP\Downloads\EX\agroindustria-produce\data\agroindustria_nacional_2023_clean.csv" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+
 expression Parameter_Server = "replace-with-server.postgres.database.azure.com" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 
 expression Parameter_Database = "agroindustria_dw" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
