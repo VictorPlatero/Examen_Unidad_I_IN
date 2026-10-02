@@ -1,7 +1,20 @@
 expression Parameter_Source = "CSV" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 7b519532-1abe-4157-a54b-7194979c2827
+
+	annotation PBI_ResultType = Text
 
 expression Parameter_Csv = "C:\Users\HP\Downloads\EX\agroindustria-produce\data\agroindustria_nacional_2023_clean.csv" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e0dd9144-49d4-468c-9aa5-65c01d53647d
+
+	annotation PBI_ResultType = Text
 
 expression Parameter_Server = "replace-with-server.postgres.database.azure.com" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 2340e159-0070-4a6e-a96f-6db8b9965772
+
+	annotation PBI_ResultType = Text
 
 expression Parameter_Database = "agroindustria_dw" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: aa22e8be-55dc-4c2f-ab06-3b137e072886
+
+	annotation PBI_ResultType = Text
+

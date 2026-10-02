@@ -222,7 +222,7 @@ El archivo `powerbi/AgroindustriaProduce.pbix` incluye tres paginas con visuales
 
 Para publicar desde GitHub Actions se incluye `powerbi/AgroindustriaProduce.pbix`. Si se actualiza el diseno desde Power BI Desktop, guardar la nueva version con el mismo nombre y ejecutar `deploy.yml`.
 
-Verificacion del punto 4: `python scripts/validate_powerbi_report.py --output powerbi/validation.json` (requiere `jsonschema`). Se validan tres paginas, cuatro graficos, tabla, segmentadores, esquemas oficiales, columnas e integridad del PBIX. El modelo existente fue contrastado mediante DAX: 14,224 registros y 665 exportadoras. La revision visual en Desktop y la publicacion no estan confirmadas por esta comprobacion. Los pasos manuales estan en `powerbi/README.md`.
+Verificacion del punto 4: `python scripts/validate_powerbi_report.py --output powerbi/validation.json` (requiere `jsonschema`). Se validan tres paginas, cuatro graficos, tabla, segmentadores, esquemas oficiales, columnas e integridad del PBIX. Se comprobaron en Desktop las tres paginas y el cambio de filas al filtrar `Exporta = SI`. El modelo fue contrastado mediante DAX: 14,224 registros y 665 exportadoras. El PBIX publicable debe guardarse desde Desktop; validar JSON o reempaquetar el archivo no confirma que Desktop pueda abrirlo. La publicacion se verifica por separado. Los pasos manuales estan en `powerbi/README.md`.
 
 ## Publicacion del reporte
 

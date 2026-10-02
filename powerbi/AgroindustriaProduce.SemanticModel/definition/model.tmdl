@@ -9,8 +9,11 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["agroindustria_nacional_2023_clean"]
+annotation PBI_QueryOrder = ["agroindustria_nacional_2023_clean","Parameter_Source","Parameter_Csv","Parameter_Server","Parameter_Database"]
+
+annotation PBI_ProTooling = ["DevMode"]
 
 ref table agroindustria_nacional_2023_clean
 
 ref cultureInfo en-US
+

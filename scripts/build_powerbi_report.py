@@ -1,11 +1,8 @@
-"""Build native Power BI visuals in PBIR and preserve the imported PBIX model."""
+"""Build editable PBIR visuals; export the PBIX using Power BI Desktop."""
 
 import argparse
-import hashlib
 import json
 from pathlib import Path
-import shutil
-import tempfile
 import zipfile
 
 from validate_powerbi_report import validate_definition
@@ -179,8 +176,10 @@ def build_definition():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--update-pbix", action="store_true", help="Update the existing PBIX, keeping a .bak copy.")
+    parser.add_argument("--update-pbix", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
+    if args.update_pbix:
+        parser.error("No se modifica el contenedor PBIX. Abra el PBIP, actualice y guarde como PBIX desde Power BI Desktop.")
     files = build_definition()
     validate_definition(files)
     for name, value in files.items():
@@ -193,29 +192,8 @@ def main():
                 target = REPORT / name.removeprefix("Report/")
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(source.read(name))
-    if args.update_pbix:
-        with zipfile.ZipFile(PBIX) as source:
-            if not any(n.startswith("Report/definition/") for n in source.namelist()):
-                raise ValueError("Se requiere un PBIX con formato PBIR y modelo importado.")
-            original_hash = hashlib.sha256(source.read("DataModel")).hexdigest()
-            with tempfile.TemporaryDirectory() as temp:
-                candidate = Path(temp) / PBIX.name
-                with zipfile.ZipFile(candidate, "w", compression=zipfile.ZIP_DEFLATED) as output:
-                    for info in source.infolist():
-                        if not info.filename.startswith("Report/definition/"):
-                            output.writestr(info, source.read(info.filename))
-                    for name, value in files.items():
-                        output.writestr("Report/definition/" + name, json.dumps(value).encode("utf-8"))
-                with zipfile.ZipFile(candidate) as output:
-                    if output.testzip() or hashlib.sha256(output.read("DataModel")).hexdigest() != original_hash:
-                        raise ValueError("La comprobacion de integridad del PBIX fallo.")
-                backup = PBIX.with_suffix(".pbix.bak")
-                if not backup.exists():
-                    shutil.copy2(PBIX, backup)
-                source.close()
-                shutil.copy2(candidate, PBIX)
-        print("PBIX actualizado; DataModel y otras partes conservadas. Copia anterior: .pbix.bak")
     print(f"Definicion creada: {len(files)} archivos, 3 paginas con visuales nativos.")
+    print("Abra el PBIP en Desktop, actualice los datos y guarde como PBIX antes de publicar.")
 
 
 if __name__ == "__main__":

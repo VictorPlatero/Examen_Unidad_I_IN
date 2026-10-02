@@ -1,17 +1,38 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "tabla_detalle_titulo",
   "position": {
     "x": 24,
     "y": 16,
-    "width": 840,
-    "height": 48,
     "z": 0,
+    "height": 48,
+    "width": 840,
     "tabOrder": 184
   },
   "visual": {
     "visualType": "textbox",
-    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Detalle de empresas",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "24pt",
+                      "color": "#202B28"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -27,13 +48,6 @@
               "expr": {
                 "Literal": {
                   "Value": "''"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "14"
                 }
               }
             },
@@ -71,39 +85,11 @@
                   }
                 }
               }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0"
-                }
-              }
             }
           }
         }
       ]
     },
-    "objects": {
-      "general": [
-        {
-          "properties": {
-            "paragraphs": [
-              {
-                "textRuns": [
-                  {
-                    "value": "Detalle de empresas",
-                    "textStyle": {
-                      "fontFamily": "Segoe UI",
-                      "fontSize": "24pt",
-                      "color": "#202B28"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    }
+    "drillFilterOtherVisuals": true
   }
 }

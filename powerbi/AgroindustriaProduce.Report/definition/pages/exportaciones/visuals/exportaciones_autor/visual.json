@@ -1,17 +1,38 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "exportaciones_autor",
   "position": {
     "x": 24,
     "y": 66,
-    "width": 850,
-    "height": 34,
     "z": 0,
+    "height": 34,
+    "width": 850,
     "tabOrder": 684
   },
   "visual": {
     "visualType": "textbox",
-    "drillFilterOtherVisuals": true,
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "PRODUCE 2023 | Victor Joseph Platero Maron",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "11pt",
+                      "color": "#202B28"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -27,13 +48,6 @@
               "expr": {
                 "Literal": {
                   "Value": "''"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "14"
                 }
               }
             },
@@ -71,39 +85,11 @@
                   }
                 }
               }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0"
-                }
-              }
             }
           }
         }
       ]
     },
-    "objects": {
-      "general": [
-        {
-          "properties": {
-            "paragraphs": [
-              {
-                "textRuns": [
-                  {
-                    "value": "PRODUCE 2023 | Victor Joseph Platero Maron",
-                    "textStyle": {
-                      "fontFamily": "Segoe UI",
-                      "fontSize": "11pt",
-                      "color": "#202B28"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    }
+    "drillFilterOtherVisuals": true
   }
 }

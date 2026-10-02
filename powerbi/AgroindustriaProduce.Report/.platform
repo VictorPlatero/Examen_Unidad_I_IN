@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "AgroindustriaProduce"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "5508a085-8225-4e5c-b02d-90a8ab36d94e"
+  }
+}

@@ -158,3 +158,4 @@ table agroindustria_nacional_2023_clean
 				    #"Changed Type"
 
 	annotation PBI_ResultType = Table
+

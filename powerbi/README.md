@@ -30,13 +30,14 @@ Desde la raiz del repositorio:
 
 ```bash
 python -m pip install jsonschema
-python scripts/build_powerbi_report.py --update-pbix
+python scripts/build_powerbi_report.py
+# Abrir el PBIP en Desktop, actualizar y guardar como PBIX.
 python scripts/validate_powerbi_report.py --output powerbi/validation.json
 ```
 
-El generador guarda una copia `.pbix.bak` antes del primer reemplazo y conserva el `DataModel` binario. La validacion comprueba esquemas oficiales de Microsoft, columnas, tres paginas, graficos, filtros, integridad del paquete, concordancia PBIR/PBIX y posiciones sin superposicion.
+El generador solo modifica la definicion editable PBIR. No reempaqueta archivos PBIX: el archivo publicable debe guardarse desde Power BI Desktop. La validacion comprueba esquemas oficiales de Microsoft, columnas, tres paginas, graficos, filtros, integridad del paquete, concordancia PBIR/PBIX y posiciones sin superposicion.
 
-`validation.json` registra el resultado. La validacion estructural no confirma la renderizacion en Desktop ni la publicacion en el servicio: esos estados figuran por separado. La revision visual en Desktop sigue pendiente porque el control de escritorio no estuvo disponible en la sesion de construccion.
+`validation.json` registra el resultado estructural; la publicacion en el servicio se verifica por separado. Se revisaron las tres paginas en Power BI Desktop con los datos cargados y se probo el segmentador `Exporta = SI`, comprobando que cambia las filas de la tabla. La version empaquetada directamente que Desktop rechazo debe reemplazarse por la copia guardada desde Desktop antes de publicar.
 
 `dashboard_preview.html` y `images/` son vistas previas auxiliares, no el reporte publicable.
 

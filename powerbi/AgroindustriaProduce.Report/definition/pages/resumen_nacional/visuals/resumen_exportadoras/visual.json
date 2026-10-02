@@ -1,17 +1,77 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "resumen_exportadoras",
   "position": {
     "x": 418,
     "y": 140,
-    "width": 370,
-    "height": 120,
     "z": 0,
+    "height": 120,
+    "width": 370,
     "tabOrder": 1818
   },
   "visual": {
     "visualType": "card",
-    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "agroindustria_nacional_2023_clean"
+                        }
+                      },
+                      "Property": "id_anonimo_emp"
+                    }
+                  },
+                  "Function": 2
+                }
+              },
+              "queryRef": "CountDistinct(agroindustria_nacional_2023_clean.id_anonimo_emp)",
+              "nativeQueryRef": "Exportadoras",
+              "displayName": "Exportadoras",
+              "format": "#,0"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#167D68'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -27,13 +87,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'Exportadoras'"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "14"
                 }
               }
             },
@@ -71,100 +124,12 @@
                   }
                 }
               }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0"
-                }
-              }
             }
           }
         }
       ]
     },
-    "query": {
-      "queryState": {
-        "Values": {
-          "projections": [
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "agroindustria_nacional_2023_clean"
-                        }
-                      },
-                      "Property": "id_anonimo_emp"
-                    }
-                  },
-                  "Function": 2
-                }
-              },
-              "queryRef": "CountDistinct(agroindustria_nacional_2023_clean.id_anonimo_emp)",
-              "nativeQueryRef": "Exportadoras",
-              "displayName": "Exportadoras",
-              "format": "#,0"
-            }
-          ]
-        }
-      }
-    },
-    "objects": {
-      "labels": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "28"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#167D68'"
-                    }
-                  }
-                }
-              }
-            },
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "0"
-                }
-              }
-            },
-            "labelPrecision": {
-              "expr": {
-                "Literal": {
-                  "Value": "0"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "categoryLabels": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ]
-    }
+    "drillFilterOtherVisuals": true
   },
   "filterConfig": {
     "filters": [
@@ -181,8 +146,6 @@
           }
         },
         "type": "Categorical",
-        "howCreated": "User",
-        "isLockedInViewMode": true,
         "filter": {
           "Version": 2,
           "From": [
@@ -221,7 +184,9 @@
               }
             }
           ]
-        }
+        },
+        "howCreated": "User",
+        "isLockedInViewMode": true
       }
     ]
   }
