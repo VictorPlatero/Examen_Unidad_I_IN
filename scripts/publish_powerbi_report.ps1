@@ -9,6 +9,19 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+$requiredValues = @{
+    TenantId     = $TenantId
+    ClientId     = $ClientId
+    ClientSecret = $ClientSecret
+    WorkspaceId  = $WorkspaceId
+}
+
+foreach ($item in $requiredValues.GetEnumerator()) {
+    if ([string]::IsNullOrWhiteSpace($item.Value)) {
+        throw "Missing required Power BI setting: $($item.Key). Configure the matching GitHub secret before running deploy.yml."
+    }
+}
+
 if (-not (Test-Path -LiteralPath $PbixPath)) {
     throw "PBIX file not found: $PbixPath. Export the report from Power BI Desktop to this path before running deploy.yml."
 }

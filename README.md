@@ -38,10 +38,13 @@ El CSV original usa separador `;`, codificacion `latin1` y contiene cinco column
 │   └── db.changelog-master.yaml
 ├── powerbi/
 │   ├── AgroindustriaProduce.pbip
+│   ├── AgroindustriaProduce.pbix
 │   ├── AgroindustriaProduce.Report/
 │   ├── AgroindustriaProduce.SemanticModel/
+│   ├── images/
 │   └── README.md
 ├── scripts/
+│   ├── build_powerbi_page_images.py
 │   ├── clean_dataset.py
 │   └── publish_powerbi_report.ps1
 ├── sql/
@@ -173,7 +176,7 @@ Secretos necesarios:
 
 ### `deploy.yml`
 
-Publica `powerbi/AgroindustriaProduce.pbix` en Power BI Service y agrega acceso de lectura para `patcuadrosq@upt.pe`.
+Publica `powerbi/AgroindustriaProduce.pbix` en Power BI Service, registra la URL como artefacto de GitHub Actions y agrega acceso de lectura para `patcuadrosq@upt.pe`.
 
 Secretos necesarios:
 
@@ -217,7 +220,7 @@ El directorio `powerbi/` incluye un proyecto Power BI (`.pbip`) con modelo seman
 - Dashboard 2: exportaciones.
 - Reporte de tabla: detalle empresarial con filtro por `tamanio_emp`.
 
-Para publicar desde GitHub Actions, abrir `powerbi/AgroindustriaProduce.pbip` en Power BI Desktop, completar las paginas descritas en `powerbi/AgroindustriaProduce.Report/report_spec.md`, guardar como `powerbi/AgroindustriaProduce.pbix` y ejecutar `deploy.yml`.
+Para publicar desde GitHub Actions se incluye `powerbi/AgroindustriaProduce.pbix`. Si se actualiza el diseno desde Power BI Desktop, guardar la nueva version con el mismo nombre y ejecutar `deploy.yml`.
 
 ## Publicacion del reporte
 
@@ -226,7 +229,7 @@ El requisito indica compartir el reporte publicado con la cuenta `patcuadrosqœu
 Para publicar el reporte hay dos opciones:
 
 1. Publicacion manual: abrir `powerbi/AgroindustriaProduce.pbip` en Power BI Desktop, conectarlo a PostgreSQL, guardar como `powerbi/AgroindustriaProduce.pbix`, usar **Publicar** hacia el workspace de Power BI y compartir el reporte con la cuenta indicada.
-2. Publicacion automatizada: subir `powerbi/AgroindustriaProduce.pbix` al repositorio, configurar los secretos de Power BI indicados en `docs/secrets.md` y ejecutar el workflow `deploy-powerbi`.
+2. Publicacion automatizada: configurar los secretos de Power BI indicados en `docs/secrets.md` y ejecutar el workflow `deploy-powerbi`.
 
 Para que un tercero ejecute la publicacion automatizada se necesita:
 
